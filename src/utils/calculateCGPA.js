@@ -1,14 +1,7 @@
-// Calculate CGPA
-// semesters: [{ sgpa: number, credits: number }]
+// Calculate CGPA as the average of entered SGPA values (ignore credits)
 export function calculateCGPA(semesters) {
-  let totalCredits = 0;
-  let totalPoints = 0;
-  for (const sem of semesters) {
-    const credits = Number(sem.credits);
-    const sgpa = Number(sem.sgpa);
-    totalCredits += credits;
-    totalPoints += credits * sgpa;
-  }
-  if (totalCredits === 0) return 0;
-  return totalPoints / totalCredits;
+  const valid = semesters.filter(s => s.sgpa && !isNaN(Number(s.sgpa)));
+  if (valid.length === 0) return 0;
+  const sum = valid.reduce((acc, s) => acc + Number(s.sgpa), 0);
+  return sum / valid.length;
 } 

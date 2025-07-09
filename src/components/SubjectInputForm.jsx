@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { getGradePointFromMarks, getGradePointFromLetter } from '../utils/gradeMapping';
 import '../styles/SelectorGroup.css';
 
@@ -26,6 +26,42 @@ const ECE_4TH_SEM_SUBJECTS = [
   { name: 'NSS / Sports / Yoga', credits: 0, code: 'BNSK459/BPEK459/BYOK459' },
 ];
 
+const EEE_4TH_SEM_SUBJECTS = [
+  { name: 'Electric Motors', credits: 3, code: 'BEE401' },
+  { name: 'Transmission and Distribution', credits: 4, code: 'BEE402' },
+  { name: 'Microcontrollers', credits: 4, code: 'BEE403' },
+  { name: 'Electric Motors lab', credits: 1, code: 'BEEL404' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BEE405x' },
+  { name: 'Ability Enhancement Course/Skill Enhancement Course- IV', credits: 1, code: 'BEE456x' },
+  { name: 'Biology For Engineers', credits: 3, code: 'BBOK407' },
+  { name: 'Universal human values course', credits: 1, code: 'BUHK408' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK459/BPEK459/BYOK459' },
+];
+
+const CIVIL_4TH_SEM_SUBJECTS = [
+  { name: 'Analysis of Structures', credits: 3, code: 'BCV401' },
+  { name: 'Fluid Mechanics and Hydraulics', credits: 4, code: 'BCV402' },
+  { name: 'Transportation Engineering', credits: 4, code: 'BCV403' },
+  { name: 'Building Materials Testing Lab', credits: 1, code: 'BCV404' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BCV405x' },
+  { name: 'AEC/SEC-IV (Ability/Skill Enhancement Course)', credits: 1, code: 'BCV456x' },
+  { name: 'Biology For Engineers', credits: 3, code: 'BBOK407' },
+  { name: 'Universal Human Values Course', credits: 1, code: 'BUHK408' },
+  { name: 'NSS / PE / Yoga', credits: 0, code: 'BNSK459/BPEK459/BYOK459' },
+];
+
+const MECH_4TH_SEM_SUBJECTS = [
+  { name: 'Applied Thermodynamics', credits: 3, code: 'BME401' },
+  { name: 'Machining Science & Metrology', credits: 4, code: 'BME402' },
+  { name: 'Fluid Mechanics', credits: 4, code: 'BME403' },
+  { name: 'Mechanical Measurements and Metrology Lab', credits: 1, code: 'BME404' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BME405x' },
+  { name: 'AEC/SEC-IV (Ability/Skill Enhancement Course)', credits: 1, code: 'BME456x' },
+  { name: 'Biology For Engineers', credits: 3, code: 'BBOK407' },
+  { name: 'Universal Human Values Course', credits: 1, code: 'BUHK408' },
+  { name: 'NSS / PE / Yoga', credits: 0, code: 'BNSK459/BPEK459/BYOK459' },
+];
+
 const isCSE4thSem = (semester, stream) => {
   if (semester !== '4th') return false;
   if (!stream) return false;
@@ -51,6 +87,39 @@ const isECE4thSem = (semester, stream) => {
     );
   };
 
+const isEEE4thSem = (semester, stream) => {
+  if (semester !== '4th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase();
+  return (
+    s === 'eee' ||
+    s.includes('eee branch') ||
+    s.includes('electrical and electronics')
+  );
+};
+
+const isCivil4thSem = (semester, stream) => {
+  if (semester !== '4th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase();
+  return (
+    s === 'civil engineering' ||
+    s === 'civil' ||
+    s.includes('civil branch')
+  );
+};
+
+const isMech4thSem = (semester, stream) => {
+  if (semester !== '4th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase();
+  return (
+    s === 'mechanical engineering' ||
+    s === 'mechanical' ||
+    s.includes('mech branch')
+  );
+};
+
 const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stream }) => {
   // Auto-populate for CSE/ISE/AIML 4th sem
   useEffect(() => {
@@ -58,6 +127,12 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       setSubjects(CSE_4TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     } else if (mode === 'sgpa' && isECE4thSem(semester, stream)) {
       setSubjects(ECE_4TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isEEE4thSem(semester, stream)) {
+      setSubjects(EEE_4TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCivil4thSem(semester, stream)) {
+      setSubjects(CIVIL_4TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isMech4thSem(semester, stream)) {
+      setSubjects(MECH_4TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     }
     // eslint-disable-next-line
   }, [semester, stream, mode]);
@@ -73,6 +148,33 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
 
   // Handle marks input for ECE 4th sem
   const handleMarksChangeECE = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for EEE 4th sem
+  const handleMarksChangeEEE = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Civil 4th sem
+  const handleMarksChangeCivil = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Mechanical 4th sem
+  const handleMarksChangeMech = (idx, value) => {
     const gradePoint = getGradePointFromMarks(Number(value));
     const updated = subjects.map((subj, i) =>
       i === idx ? { ...subj, marks: value, gradePoint } : subj
@@ -114,6 +216,9 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
     setSubjects(updated);
   };
 
+  // Add refs for marks inputs
+  const marksRefs = useRef([]);
+
   // Render for CSE/ISE/AIML 4th sem
   if (mode === 'sgpa' && isCSE4thSem(semester, stream)) {
     return (
@@ -132,6 +237,14 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subj.marks}
                 onChange={e => handleMarksChangeCSE(idx, e.target.value)}
                 className="subject-input"
+                ref={el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
               />
               <span className="grade-point">GP: {subj.gradePoint}</span>
             </div>
@@ -159,6 +272,14 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subj.marks}
                 onChange={e => handleMarksChangeECE(idx, e.target.value)}
                 className="subject-input"
+                ref={el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
               />
               <span className="grade-point">GP: {subj.gradePoint}</span>
             </div>
@@ -168,7 +289,161 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
     );
   }
 
+  // Render for EEE 4th sem
+  if (mode === 'sgpa' && isEEE4thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 4th Semester | EEE</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeEEE(idx, e.target.value)}
+                className="subject-input"
+                ref={el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Civil 4th sem
+  if (mode === 'sgpa' && isCivil4thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 4th Semester | Civil</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil(idx, e.target.value)}
+                className="subject-input"
+                ref={el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              {/* For NSS/PE/Yoga (credits 0), marks will not be considered in SGPA calculation. This must be handled in the SGPA calculation logic. */}
+              <span className="grade-point">GP: {subj.credits !== 0 ? `GP: ${subj.gradePoint}` : ''}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Mechanical 4th sem
+  if (mode === 'sgpa' && isMech4thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 4th Semester | Mechanical</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeMech(idx, e.target.value)}
+                className="subject-input"
+                ref={el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              {/* For NSS/PE/Yoga (credits 0), marks will not be considered in SGPA calculation. This must be handled in the SGPA calculation logic. */}
+              <span className="grade-point">GP: {subj.credits !== 0 ? `GP: ${subj.gradePoint}` : ''}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   // Default rendering for all other cases
+  if (mode === 'cgpa') {
+    // Always show 8 semesters for CGPA
+    const semesterLabels = [
+      '1st Semester SGPA',
+      '2nd Semester SGPA',
+      '3rd Semester SGPA',
+      '4th Semester SGPA',
+      '5th Semester SGPA',
+      '6th Semester SGPA',
+      '7th Semester SGPA',
+      '8th Semester SGPA',
+    ];
+    // Ensure subjects array has 8 items
+    while (subjects.length < 8) {
+      subjects.push({ sgpa: '', credits: '' });
+    }
+    return (
+      <div className="cgpa-input-card">
+        <div className="cgpa-note">(Leave blank if you don't have SGPA)</div>
+        <div className="cgpa-grid">
+          {semesterLabels.map((label, idx) => (
+            <div className="cgpa-grid-item" key={idx}>
+              <label>{label}</label>
+              <input
+                type="number"
+                min="0"
+                max="10"
+                step="0.01"
+                placeholder="SGPA"
+                value={subjects[idx].sgpa}
+                onChange={e => handleChange(idx, 'sgpa', e.target.value)}
+                className="subject-input"
+              />
+              <input
+                type="number"
+                min="0"
+                placeholder="Credits"
+                value={subjects[idx].credits}
+                onChange={e => handleChange(idx, 'credits', e.target.value)}
+                className="subject-input"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="section-card">
       <h3>{mode === 'sgpa' ? 'Enter your marks for each subject' : 'Enter SGPA and credits for each semester'}</h3>
@@ -195,6 +470,14 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                   value={subj.marks}
                   onChange={e => handleMarksOrGradeChange(idx, 'marks', e.target.value)}
                   className="subject-input"
+                  ref={el => marksRefs.current[idx] = el}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      if (marksRefs.current[idx + 1]) {
+                        marksRefs.current[idx + 1].focus();
+                      }
+                    }
+                  }}
                 />
                 <input
                   type="text"
