@@ -120,7 +120,7 @@ const isMech4thSem = (semester, stream) => {
   );
 };
 
-const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stream }) => {
+const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stream, firstInputRef }) => {
   // Auto-populate for CSE/ISE/AIML 4th sem
   useEffect(() => {
     if (mode === 'sgpa' && isCSE4thSem(semester, stream)) {
@@ -218,6 +218,7 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
 
   // Add refs for marks inputs
   const marksRefs = useRef([]);
+  const sgpaRefs = useRef([]); // Always declare at top
 
   // Render for CSE/ISE/AIML 4th sem
   if (mode === 'sgpa' && isCSE4thSem(semester, stream)) {
@@ -237,9 +238,10 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subj.marks}
                 onChange={e => handleMarksChangeCSE(idx, e.target.value)}
                 className="subject-input"
-                ref={el => marksRefs.current[idx] = el}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
+                    e.preventDefault();
                     if (marksRefs.current[idx + 1]) {
                       marksRefs.current[idx + 1].focus();
                     }
@@ -272,9 +274,10 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subj.marks}
                 onChange={e => handleMarksChangeECE(idx, e.target.value)}
                 className="subject-input"
-                ref={el => marksRefs.current[idx] = el}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
+                    e.preventDefault();
                     if (marksRefs.current[idx + 1]) {
                       marksRefs.current[idx + 1].focus();
                     }
@@ -307,9 +310,10 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subj.marks}
                 onChange={e => handleMarksChangeEEE(idx, e.target.value)}
                 className="subject-input"
-                ref={el => marksRefs.current[idx] = el}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
+                    e.preventDefault();
                     if (marksRefs.current[idx + 1]) {
                       marksRefs.current[idx + 1].focus();
                     }
@@ -342,9 +346,10 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subj.marks}
                 onChange={e => handleMarksChangeCivil(idx, e.target.value)}
                 className="subject-input"
-                ref={el => marksRefs.current[idx] = el}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
+                    e.preventDefault();
                     if (marksRefs.current[idx + 1]) {
                       marksRefs.current[idx + 1].focus();
                     }
@@ -378,9 +383,10 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subj.marks}
                 onChange={e => handleMarksChangeMech(idx, e.target.value)}
                 className="subject-input"
-                ref={el => marksRefs.current[idx] = el}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
+                    e.preventDefault();
                     if (marksRefs.current[idx + 1]) {
                       marksRefs.current[idx + 1].focus();
                     }
@@ -411,7 +417,7 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
     ];
     // Ensure subjects array has 8 items
     while (subjects.length < 8) {
-      subjects.push({ sgpa: '', credits: '' });
+      subjects.push({ sgpa: '' });
     }
     return (
       <div className="cgpa-input-card">
@@ -429,14 +435,15 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 value={subjects[idx].sgpa}
                 onChange={e => handleChange(idx, 'sgpa', e.target.value)}
                 className="subject-input"
-              />
-              <input
-                type="number"
-                min="0"
-                placeholder="Credits"
-                value={subjects[idx].credits}
-                onChange={e => handleChange(idx, 'credits', e.target.value)}
-                className="subject-input"
+                ref={el => sgpaRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (sgpaRefs.current[idx + 1]) {
+                      sgpaRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
               />
             </div>
           ))}
@@ -470,9 +477,10 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                   value={subj.marks}
                   onChange={e => handleMarksOrGradeChange(idx, 'marks', e.target.value)}
                   className="subject-input"
-                  ref={el => marksRefs.current[idx] = el}
+                  ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                   onKeyDown={e => {
                     if (e.key === 'Enter') {
+                      e.preventDefault();
                       if (marksRefs.current[idx + 1]) {
                         marksRefs.current[idx + 1].focus();
                       }

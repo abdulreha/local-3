@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/SelectorGroup.css';
 
-const schemes = ['2022', '2021', '2018'];
+const schemes = ['2022'];
 
 const SchemeSelector = ({ scheme, setScheme }) => (
   <div className="section-card">

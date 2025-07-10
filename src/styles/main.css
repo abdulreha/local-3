@@ -275,6 +275,13 @@ button[disabled] {
   transform: translateY(30px);
   pointer-events: none;
 }
+.mode-transition {
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+.mode-transition.transitioning {
+  opacity: 0;
+}
 @media (max-width: 900px) {
   .home-cards-container {
     flex-direction: column;

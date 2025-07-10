@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SchemeSelector from './components/SchemeSelector';
@@ -66,6 +66,7 @@ function App() {
   const [semester, setSemester] = useState('');
   const [stream, setStream] = useState('');
   const [mode, setMode] = useState('sgpa'); // 'sgpa' or 'cgpa'
+  const [transitioning, setTransitioning] = useState(false);
   const [subjects, setSubjects] = useState([
     { credits: '', marks: '', grade: '', gradePoint: '' },
   ]);
@@ -76,6 +77,16 @@ function App() {
   const [cgpa, setCGPA] = useState(0);
   const [percentage, setPercentage] = useState('');
   const [showResult, setShowResult] = useState(false);
+  const resultRef = useRef(null);
+  const semesterRef = useRef(null);
+  const streamRef = useRef(null);
+  const firstMarksInputRef = useRef(null);
+
+  const scrollToResult = () => {
+    if (resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
 
   const handleCalculate = () => {
     if (mode === 'sgpa') {
@@ -91,6 +102,7 @@ function App() {
         setSGPA(sgpaValue);
         setPercentage(sgpaToPercentage(sgpaValue));
         setShowResult(true);
+        setTimeout(scrollToResult, 100); // scroll after result is shown
       } else if (isECE4thSem(semester, stream)) {
         // Use fixed credits for ECE 4th sem
         const validSubjects = subjects.filter(
@@ -103,6 +115,7 @@ function App() {
         setSGPA(sgpaValue);
         setPercentage(sgpaToPercentage(sgpaValue));
         setShowResult(true);
+        setTimeout(scrollToResult, 100);
       } else {
         // Only include subjects with valid credits and gradePoint
         const validSubjects = subjects.filter(
@@ -112,16 +125,18 @@ function App() {
         setSGPA(sgpaValue);
         setPercentage(sgpaToPercentage(sgpaValue));
         setShowResult(true);
+        setTimeout(scrollToResult, 100);
       }
     } else {
-      // Only include semesters with valid sgpa and credits
+      // Only include semesters with valid sgpa
       const validSemesters = semesters.filter(
-        s => s.sgpa && s.credits
-      ).map(s => ({ sgpa: Number(s.sgpa), credits: Number(s.credits) }));
+        s => s.sgpa
+      ).map(s => ({ sgpa: Number(s.sgpa), credits: 1 })); // Use credits: 1 for all
       const cgpaValue = calculateCGPA(validSemesters);
       setCGPA(cgpaValue);
       setPercentage(sgpaToPercentage(cgpaValue));
       setShowResult(true);
+      setTimeout(scrollToResult, 100);
     }
   };
 
@@ -137,41 +152,91 @@ function App() {
     setShowResult(false);
   };
 
+  const handleModeChange = (newMode) => {
+    if (mode !== newMode) {
+      setTransitioning(true);
+      setTimeout(() => {
+        setMode(newMode);
+        setTransitioning(false);
+      }, 400); // 400ms for transition
+    }
+  };
+
+  const handleSchemeChange = (newScheme) => {
+    setScheme(newScheme);
+    setTimeout(() => {
+      if (semesterRef.current) {
+        semesterRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  };
+  const handleSemesterChange = (newSemester) => {
+    setSemester(newSemester);
+    setTimeout(() => {
+      if (streamRef.current) {
+        streamRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  };
+
+  const handleStreamChange = (newStream) => {
+    setStream(newStream);
+    setTimeout(() => {
+      if (firstMarksInputRef.current) {
+        firstMarksInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  };
+
   return (
     <div className="app-container">
       <Header />
       <main>
         <div className="mode-toggle">
-          <button onClick={() => setMode('sgpa')} className={mode === 'sgpa' ? 'active' : ''}>SGPA</button>
-          <button onClick={() => setMode('cgpa')} className={mode === 'cgpa' ? 'active' : ''}>CGPA</button>
+          <button onClick={() => handleModeChange('sgpa')} className={mode === 'sgpa' ? 'active' : ''}>SGPA</button>
+          <button onClick={() => handleModeChange('cgpa')} className={mode === 'cgpa' ? 'active' : ''}>CGPA</button>
         </div>
-        <form onSubmit={e => { e.preventDefault(); handleCalculate(); }}>
-          <SchemeSelector scheme={scheme} setScheme={setScheme} />
-          <SemesterSelector semester={semester} setSemester={setSemester} />
-          <StreamSelector
-            semester={semester}
-            stream={stream}
-            setStream={setStream}
-          />
-          {mode === 'sgpa' ? (
-            <SubjectInputForm subjects={subjects} setSubjects={setSubjects} mode="sgpa" semester={semester} stream={stream} />
-          ) : (
-            <SubjectInputForm subjects={semesters} setSubjects={setSemesters} mode="cgpa" />
+        <div className={`mode-transition${transitioning ? ' transitioning' : ''}`}>
+          <form onSubmit={e => { e.preventDefault(); handleCalculate(); }}>
+            {mode === 'sgpa' && (
+              <>
+                <SchemeSelector scheme={scheme} setScheme={handleSchemeChange} />
+                <div ref={semesterRef}>
+                  <SemesterSelector semester={semester} setSemester={handleSemesterChange} />
+                </div>
+                <div ref={streamRef}>
+                  <StreamSelector
+                    semester={semester}
+                    stream={stream}
+                    setStream={handleStreamChange}
+                  />
+                </div>
+              </>
+            )}
+            {mode === 'sgpa' ? (
+              <div>
+                <SubjectInputForm subjects={subjects} setSubjects={setSubjects} mode="sgpa" semester={semester} stream={stream} firstInputRef={firstMarksInputRef} />
+              </div>
+            ) : (
+              <SubjectInputForm subjects={semesters} setSubjects={setSemesters} mode="cgpa" />
+            )}
+            <div className="form-actions">
+              <button type="submit" className="calculate-btn">Calculate</button>
+              <button type="button" onClick={handleReset} className="reset-btn">Reset</button>
+            </div>
+          </form>
+          <GradeTable />
+          {showResult && (
+            <div ref={resultRef}>
+              <ResultDisplay
+                sgpa={sgpa}
+                cgpa={cgpa}
+                percentage={percentage}
+                mode={mode}
+              />
+            </div>
           )}
-          <div className="form-actions">
-            <button type="submit" className="calculate-btn">Calculate</button>
-            <button type="button" onClick={handleReset} className="reset-btn">Reset</button>
-          </div>
-        </form>
-        <GradeTable />
-        {showResult && (
-          <ResultDisplay
-            sgpa={sgpa}
-            cgpa={cgpa}
-            percentage={percentage}
-            mode={mode}
-          />
-        )}
+        </div>
       </main>
       <Footer />
     </div>
