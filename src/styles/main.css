@@ -230,6 +230,12 @@ button[disabled] {
   grid-template-columns: 1fr 1fr;
   gap: 1.2rem 2.5rem;
 }
+@media (max-width: 600px) {
+  .cgpa-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem 0;
+  }
+}
 .cgpa-grid-item {
   display: flex;
   flex-direction: column;
@@ -281,25 +287,6 @@ button[disabled] {
 }
 .mode-transition.transitioning {
   opacity: 0;
-}
-@media (max-width: 900px) {
-  .home-cards-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-  .home-card {
-    min-width: 220px;
-    width: 90%;
-    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-  }
-  .cgpa-grid {
-    grid-template-columns: 1fr;
-    gap: 1.1rem 0;
-  }
-  .cgpa-input-card {
-    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
-  }
 }
 @media print {
   body * { visibility: hidden; }
