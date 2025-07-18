@@ -106,6 +106,50 @@ const PHYSICS_MECH_CYCLE_SUBJECTS = [
   { name: 'Innovation and Design Thinking OR Scientific Foundations of Health', credits: 1, code: 'BIDTKx58 / BSFHKx58' },
 ];
 
+const CHEMISTRY_CIVIL_CYCLE_SUBJECTS = [
+  { name: 'Mathematics - I/II for Civil Engg stream', credits: 4, code: 'BMATCx01' },
+  { name: 'Applied Chemistry for Civil Engineering Stream', credits: 4, code: 'BCHECx02' },
+  { name: 'Computer-Aided Engineering Drawing', credits: 3, code: 'BCEDKx03' },
+  { name: 'Engineering Science Course - I/II', credits: 3, code: 'BESCKx04x' },
+  { name: 'Emerging Technology Course - I/II OR Programming Language Course - I/II', credits: 3, code: 'BETCKx05x / BPLCKx05x' },
+  { name: 'Communicative English OR Professional Writing Skills in English', credits: 1, code: 'BENGKx06 / BPWSKx06' },
+  { name: 'Samskrutika Kannada / Balake Kannada OR Indian Constitution', credits: 1, code: 'BKSKKx07 / BKBKKx07 OR BICOKx07' },
+  { name: 'Innovation and Design Thinking OR Scientific Foundations of Health', credits: 1, code: 'BIDTKx58 / BSFHKx58' },
+];
+
+const CHEMISTRY_CSE_CYCLE_SUBJECTS = [
+  { name: 'Mathematics - I/II for CSE Stream', credits: 4, code: 'BMATMx01' },
+  { name: 'Applied Chemistry for CSE Stream', credits: 4, code: 'BCHEMx02' },
+  { name: 'Principles of Programming Using C', credits: 3, code: 'BPOPSx03' },
+  { name: 'Engineering Science Course - I/II', credits: 3, code: 'BESCKx04x' },
+  { name: 'Emerging Technology Course - I/II OR Programming Language Course - I/II', credits: 3, code: 'BETCKx05x / BPLCKx05x' },
+  { name: 'Communicative English OR Professional Writing Skills in English', credits: 1, code: 'BENGKx06 / BPWSKx06' },
+  { name: 'Samskrutika Kannada / Balake Kannada OR Indian Constitution', credits: 1, code: 'BKSKKx07 / BKBKKx07 OR BICOKx07' },
+  { name: 'Innovation and Design Thinking OR Scientific Foundations of Health', credits: 1, code: 'BIDTKx58 / BSFHKx58' },
+];
+
+const CHEMISTRY_ELEC_CYCLE_SUBJECTS = [
+  { name: 'Mathematics - I/II for EEE Stream', credits: 4, code: 'BMATEx01' },
+  { name: 'Applied Chemistry for EEE Stream', credits: 4, code: 'BCHEEx02' },
+  { name: 'Elementsof Electrical Engineering/ Basic Electronicsfor EEE stream', credits: 3, code: 'BEEEx03' },
+  { name: 'Engineering Science Course - I/II', credits: 3, code: 'BESCKx04x' },
+  { name: 'Emerging Technology Course - I/II OR Programming Language Course - I/II', credits: 3, code: 'BETCKx05x / BPLCKx05x' },
+  { name: 'Communicative English OR Professional Writing Skills in English', credits: 1, code: 'BENGKx06 / BPWSKx06' },
+  { name: 'Samskrutika Kannada / Balake Kannada OR Indian Constitution', credits: 1, code: 'BKSKKx07 / BKBKKx07 OR BICOKx07' },
+  { name: 'Innovation and Design Thinking OR Scientific Foundations of Health', credits: 1, code: 'BIDTKx58 / BSFHKx58' },
+];
+
+const CHEMISTRY_MECH_CYCLE_SUBJECTS = [
+  { name: 'Mathematics - I/II for Mechanical Engg Stream', credits: 4, code: 'BMATMx01' },
+  { name: 'Applied Chemistry for ME Stream', credits: 4, code: 'BCHEMx02' },
+  { name: 'Computer-Aided Engineering Drawing', credits: 3, code: 'BEMEMx03' },
+  { name: 'Engineering Science Course - I/II', credits: 3, code: 'BESCKx04x' },
+  { name: 'Emerging Technology Course - I/II OR Programming Language Course - I/II', credits: 3, code: 'BETCKx05x / BPLCKx05x' },
+  { name: 'Communicative English OR Professional Writing Skills in English', credits: 1, code: 'BENGKx06 / BPWSKx06' },
+  { name: 'Samskrutika Kannada / Balake Kannada OR Indian Constitution', credits: 1, code: 'BKSKKx07 / BKBKKx07 OR BICOKx07' },
+  { name: 'Innovation and Design Thinking OR Scientific Foundations of Health', credits: 1, code: 'BIDTKx58 / BSFHKx58' },
+];
+
 const isCSE4thSem = (semester, stream) => {
   if (semester !== '4th') return false;
   if (!stream) return false;
@@ -235,6 +279,96 @@ const isPhysicsCycleMech = (semester, stream) => {
   return isPhysics && isMech;
 };
 
+const isChemistryCycleCivil = (semester, stream) => {
+  if (!semester || !stream) return false;
+  const sem = semester.trim().toLowerCase().replace(/\s+/g, ' ');
+  const s = stream.trim().toLowerCase().replace(/\s+/g, ' ');
+  // Accept 'chemistry cycle', 'c-cycle', 'c cycle', 'c cycle', 'c-cycle', etc.
+  const isChem =
+    sem === 'c-cycle' ||
+    sem === 'c cycle' ||
+    sem === 'chemistry cycle' ||
+    sem.includes('chemistry cycle') ||
+    sem.includes('c-cycle') ||
+    sem.includes('c cycle');
+  const isCivil =
+    s.includes('civil engineering') ||
+    s.includes('civil') ||
+    s.includes('cv') ||
+    s.includes('ev') ||
+    s.includes('tr') ||
+    s.includes('cc');
+  return isChem && isCivil;
+};
+
+const isChemistryCycleCSE = (semester, stream) => {
+  if (!semester || !stream) return false;
+  const sem = semester.trim().toLowerCase().replace(/\s+/g, ' ');
+  const s = stream.trim().toLowerCase().replace(/\s+/g, ' ');
+  // Accept 'chemistry cycle', 'c-cycle', 'c cycle', 'c cycle', 'c-cycle', etc.
+  const isChem =
+    sem === 'c-cycle' ||
+    sem === 'c cycle' ||
+    sem === 'chemistry cycle' ||
+    sem.includes('chemistry cycle') ||
+    sem.includes('c-cycle') ||
+    sem.includes('c cycle');
+  const isCSE =
+    s.includes('cse stream') ||
+    s.includes('cse scheme') ||
+    s.includes('cse') ||
+    s.includes('isc') ||
+    s.includes('bt');
+  return isChem && isCSE;
+};
+
+const isChemistryCycleElec = (semester, stream) => {
+  if (!semester || !stream) return false;
+  const sem = semester.trim().toLowerCase().replace(/\s+/g, ' ');
+  const s = stream.trim().toLowerCase().replace(/\s+/g, ' ');
+  const isChem =
+    sem === 'c-cycle' ||
+    sem === 'c cycle' ||
+    sem === 'chemistry cycle' ||
+    sem.includes('chemistry cycle') ||
+    sem.includes('c-cycle') ||
+    sem.includes('c cycle');
+  const isElec =
+    s.includes('electrical engg science') ||
+    s.includes('eee') ||
+    s.includes('ece') ||
+    s.includes('etc') ||
+    s.includes('bm') ||
+    s.includes('ie') ||
+    s.includes('ml');
+  return isChem && isElec;
+};
+
+const isChemistryCycleMech = (semester, stream) => {
+  if (!semester || !stream) return false;
+  const sem = semester.trim().toLowerCase().replace(/\s+/g, ' ');
+  const s = stream.trim().toLowerCase().replace(/\s+/g, ' ');
+  const isChem =
+    sem === 'c-cycle' ||
+    sem === 'c cycle' ||
+    sem === 'chemistry cycle' ||
+    sem.includes('chemistry cycle') ||
+    sem.includes('c-cycle') ||
+    sem.includes('c cycle');
+  const isMech =
+    s.includes('mechanical engineering') ||
+    s.includes('ae') ||
+    s.includes('as') ||
+    s.includes('au') ||
+    s.includes('me') ||
+    s.includes('ip') ||
+    s.includes('im') ||
+    s.includes('ch') ||
+    s.includes('sx') ||
+    s.includes('tx');
+  return isChem && isMech;
+};
+
 const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stream, firstInputRef }) => {
   // Debug log for both CSE and Civil Physics Cycle
   console.log('semester:', semester, 'stream:', stream, 'isPhysicsCycleCivil:', isPhysicsCycleCivil(semester, stream), 'isPhysicsCycleCSE:', isPhysicsCycleCSE(semester, stream));
@@ -258,6 +392,18 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       setSubjects(PHYSICS_MECH_CYCLE_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     } else if (mode === 'sgpa' && isPhysicsCycleCivil(semester, stream)) {
       setSubjects(PHYSICS_CIVIL_CYCLE_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isChemistryCycleCSE(semester, stream)) {
+      console.log('Setting CSE Chemistry Cycle subjects');
+      setSubjects(CHEMISTRY_CSE_CYCLE_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isChemistryCycleElec(semester, stream)) {
+      console.log('Setting Electrical Chemistry Cycle subjects');
+      setSubjects(CHEMISTRY_ELEC_CYCLE_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isChemistryCycleMech(semester, stream)) {
+      console.log('Setting Mechanical Chemistry Cycle subjects');
+      setSubjects(CHEMISTRY_MECH_CYCLE_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isChemistryCycleCivil(semester, stream)) {
+      console.log('Setting Civil Chemistry Cycle subjects');
+      setSubjects(CHEMISTRY_CIVIL_CYCLE_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     }
     // eslint-disable-next-line
   }, [semester, stream, mode]);
@@ -672,6 +818,185 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
             <div className="subject-title" style={{ color: '#1e40af', fontWeight: 700, fontSize: '1.35rem', marginBottom: '0.3rem' }}>credits: {subj.credits}{subj.name}</div>
             <div style={{ color: '#3853a3', fontSize: '1.08rem', marginBottom: '1.1rem', fontWeight: 500 }}>
               {subj.code}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE(idx, e.target.value)}
+                className="subject-input"
+                style={{ flex: 1, fontSize: '1.08rem', borderRadius: '8px', border: '1.5px solid #bcd0fa', background: '#fff', marginRight: '0.7rem' }}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span style={{ background: '#dbeafe', color: '#2563eb', fontWeight: 600, fontSize: '1.08rem', borderRadius: '8px', padding: '0.18rem 0.8rem', marginLeft: '0.2rem', border: '1.2px solid #bcd0fa', minWidth: '48px', textAlign: 'center' }}>
+                GP: {subj.gradePoint || ''}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Chemistry Cycle CSE Stream Scheme
+  if (mode === 'sgpa' && isChemistryCycleCSE(semester, stream)) {
+    console.log('CHEMISTRY_CSE_CYCLE_SUBJECTS:', CHEMISTRY_CSE_CYCLE_SUBJECTS);
+    console.log('subjects state:', subjects);
+    return (
+      <div className="section-card">
+        <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '2rem', lineHeight: 1.3 }}>
+          Enter your marks for 2022 scheme | Chemistry Cycle | CSE Stream Scheme<br/>
+          <span style={{ fontWeight: 500, fontSize: '1rem' }}>(CSE/ISC/BT) branch</span>
+        </h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code + '-' + idx} style={{ background: '#e8edff', borderRadius: '16px', padding: '1.1rem 1.2rem 1.3rem 1.2rem', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', border: '1.5px solid #dbeafe' }}>
+            <div className="subject-title" style={{ color: '#1e40af', fontWeight: 700, fontSize: '1.35rem', marginBottom: '0.3rem' }}>{subj.name}</div>
+            <div style={{ color: '#3853a3', fontSize: '1.08rem', marginBottom: '1.1rem', fontWeight: 500 }}>
+              Code: {subj.code} | Credits: {subj.credits}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE(idx, e.target.value)}
+                className="subject-input"
+                style={{ flex: 1, fontSize: '1.08rem', borderRadius: '8px', border: '1.5px solid #bcd0fa', background: '#fff', marginRight: '0.7rem' }}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span style={{ background: '#dbeafe', color: '#2563eb', fontWeight: 600, fontSize: '1.08rem', borderRadius: '8px', padding: '0.18rem 0.8rem', marginLeft: '0.2rem', border: '1.2px solid #bcd0fa', minWidth: '48px', textAlign: 'center' }}>
+                GP: {subj.gradePoint || ''}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Chemistry Cycle Electrical Engg Science Streams
+  if (mode === 'sgpa' && isChemistryCycleElec(semester, stream)) {
+    console.log('Rendering Electrical Chemistry Cycle:', subjects);
+    return (
+      <div className="section-card">
+        <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '2rem', lineHeight: 1.3 }}>
+          Enter your marks for 2022 scheme | Chemistry Cycle | Electrical Engg Science Streams<br/>
+          <span style={{ fontWeight: 500, fontSize: '1rem' }}>(EEE/ECE/ETC/BM/IE/ML) branch</span>
+        </h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code + '-' + idx} style={{ background: '#e8edff', borderRadius: '16px', padding: '1.1rem 1.2rem 1.3rem 1.2rem', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', border: '1.5px solid #dbeafe' }}>
+            <div className="subject-title" style={{ color: '#1e40af', fontWeight: 700, fontSize: '1.35rem', marginBottom: '0.3rem' }}>{subj.name}</div>
+            <div style={{ color: '#3853a3', fontSize: '1.08rem', marginBottom: '1.1rem', fontWeight: 500 }}>
+              Code: {subj.code} | Credits: {subj.credits}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE(idx, e.target.value)}
+                className="subject-input"
+                style={{ flex: 1, fontSize: '1.08rem', borderRadius: '8px', border: '1.5px solid #bcd0fa', background: '#fff', marginRight: '0.7rem' }}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span style={{ background: '#dbeafe', color: '#2563eb', fontWeight: 600, fontSize: '1.08rem', borderRadius: '8px', padding: '0.18rem 0.8rem', marginLeft: '0.2rem', border: '1.2px solid #bcd0fa', minWidth: '48px', textAlign: 'center' }}>
+                GP: {subj.gradePoint || ''}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Chemistry Cycle Civil Engineering
+  if (mode === 'sgpa' && isChemistryCycleCivil(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '2rem', lineHeight: 1.3 }}>
+          Enter your marks for 2022 scheme | Chemistry Cycle | Civil Engineering Stream<br/>
+          <span style={{ fontWeight: 500, fontSize: '1rem' }}>(CV/EV/TR/CC) branch</span>
+        </h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code + '-' + idx} style={{ background: '#e8edff', borderRadius: '16px', padding: '1.1rem 1.2rem 1.3rem 1.2rem', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', border: '1.5px solid #dbeafe' }}>
+            <div className="subject-title" style={{ color: '#1e40af', fontWeight: 700, fontSize: '1.35rem', marginBottom: '0.3rem' }}>{subj.name}</div>
+            <div style={{ color: '#3853a3', fontSize: '1.08rem', marginBottom: '1.1rem', fontWeight: 500 }}>
+              Code: {subj.code} | Credits: {subj.credits}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil(idx, e.target.value)}
+                className="subject-input"
+                style={{ flex: 1, fontSize: '1.08rem', borderRadius: '8px', border: '1.5px solid #bcd0fa', background: '#fff', marginRight: '0.7rem' }}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span style={{ background: '#dbeafe', color: '#2563eb', fontWeight: 600, fontSize: '1.08rem', borderRadius: '8px', padding: '0.18rem 0.8rem', marginLeft: '0.2rem', border: '1.2px solid #bcd0fa', minWidth: '48px', textAlign: 'center' }}>
+                GP: {subj.gradePoint || ''}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Chemistry Cycle Mechanical Engineering Streams
+  if (mode === 'sgpa' && isChemistryCycleMech(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '2rem', lineHeight: 1.3 }}>
+          Enter your marks for 2022 scheme | Chemistry Cycle | Mechanical Engineering Streams<br/>
+          <span style={{ fontWeight: 500, fontSize: '1rem' }}>(AE/AS/AU/ME/IP/IM/CH/SX/TX) branch</span>
+        </h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code + '-' + idx} style={{ background: '#e8edff', borderRadius: '16px', padding: '1.1rem 1.2rem 1.3rem 1.2rem', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', border: '1.5px solid #dbeafe' }}>
+            <div className="subject-title" style={{ color: '#1e40af', fontWeight: 700, fontSize: '1.35rem', marginBottom: '0.3rem' }}>{subj.name}</div>
+            <div style={{ color: '#3853a3', fontSize: '1.08rem', marginBottom: '1.1rem', fontWeight: 500 }}>
+              Code: {subj.code} | Credits: {subj.credits}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
               <input
