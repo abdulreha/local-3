@@ -269,6 +269,60 @@ const MECH_5TH_SEM_SUBJECTS = [
   { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK559 / BPEK559 / BYOK559' },
 ];
 
+const CSE_6TH_SEM_SUBJECTS = [
+  { name: 'Cloud Computing (Open Stack / Google)', credits: 4, code: 'BCS601' },
+  { name: 'Machine Learning', credits: 4, code: 'BCS602' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BCS613x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BCS654x' },
+  { name: 'Project Phase I', credits: 2, code: 'BCS685' },
+  { name: 'Machine Learning lab', credits: 1, code: 'BCSL606' },
+  { name: 'Ability Enhancement Course/Skill Development Course V', credits: 1, code: 'BCS657x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNS658/BPEK658/BYOK658' },
+];
+
+const ECE_6TH_SEM_SUBJECTS = [
+  { name: 'Embedded System Design', credits: 4, code: 'BEC601' },
+  { name: 'VLSI Design and Testing', credits: 4, code: 'BEC602' },
+  { name: 'Major Project Phase I', credits: 2, code: 'BEC685' },
+  { name: 'VLSI Design and Testing Lab', credits: 1, code: 'BECL606' },
+  { name: 'Ability Enhancement Course–V', credits: 1, code: 'BEC657x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BEC654x' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BEC613x' },
+];
+
+const EEE_6TH_SEM_SUBJECTS = [
+  { name: 'Power System Analysis I', credits: 4, code: 'BEE601' },
+  { name: 'Control Systems', credits: 4, code: 'BEE602' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BEE613x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BEE654x' },
+  { name: 'Project Phase I', credits: 2, code: 'BEE685' },
+  { name: 'Control System Lab', credits: 1, code: 'BEEL606' },
+  { name: 'Ability Enhancement Course/Skill Development Course V', credits: 1, code: 'BEE657x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK658/BPEK658/BYOK658' },
+];
+
+const CIVIL_6TH_SEM_SUBJECTS = [
+  { name: 'Design of RCC Structures', credits: 4, code: 'BCV601' },
+  { name: 'Irrigation Engineering and Hydraulic Structures', credits: 4, code: 'BCV602' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BCV613x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BCV654x' },
+  { name: 'Major Project Phase I', credits: 2, code: 'BCV685' },
+  { name: 'Software Application Lab', credits: 1, code: 'BCVL606' },
+  { name: 'Ability Enhancement Course/Skill Development Course V', credits: 1, code: 'BCV657x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK658/BPEK658/BYOK658' },
+];
+
+const MECH_6TH_SEM_SUBJECTS = [
+  { name: 'Heat Transfer', credits: 4, code: 'BME601' },
+  { name: 'Machine Design', credits: 4, code: 'BME602' },
+  { name: 'Professional Elective - II', credits: 3, code: 'BME613x' },
+  { name: 'Open Elective - I', credits: 3, code: 'BME654x' },
+  { name: 'Major Project Phase - I', credits: 2, code: 'BME685' },
+  { name: 'Design Lab', credits: 1, code: 'BMEL606L' },
+  { name: 'Ability Enhancement Course/Skill Development Course V', credits: 1, code: 'BME657x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK658 / BPEK658 / BYOK658' },
+];
+
 const isCSE3rdSem = (semester, stream) => {
   if (semester !== '3rd') return false;
   if (!stream) return false;
@@ -621,6 +675,66 @@ const isMech5thSem = (semester, stream) => {
   );
 };
 
+const isCSE6thSem = (semester, stream) => {
+  if (semester !== '6th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('cse') ||
+    s.includes('ise') ||
+    s.includes('aiml') ||
+    s.includes('cs') ||
+    s.includes('is')
+  );
+};
+
+const isECE6thSem = (semester, stream) => {
+  if (semester !== '6th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'ec' ||
+    s === 'ece' ||
+    s.includes('electronics') ||
+    s.includes('ec branch') ||
+    s.includes('ece branch')
+  );
+};
+
+const isEEE6thSem = (semester, stream) => {
+  if (semester !== '6th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'eee' ||
+    s.includes('eee branch') ||
+    s.includes('electrical and electronics')
+  );
+};
+
+const isCivil6thSem = (semester, stream) => {
+  if (semester !== '6th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'civil engineering' ||
+    s === 'civil' ||
+    s.includes('civil branch')
+  );
+};
+
+const isMech6thSem = (semester, stream) => {
+  if (semester !== '6th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'mechanical engineering' ||
+    s === 'mechanical' ||
+    s.includes('mech branch') ||
+    s.includes('mechanical branch')
+  );
+};
+
 const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stream, firstInputRef }) => {
   // Debug log for all detection functions
   console.log('semester:', semester, 'stream:', stream, 'isCSE3rdSem:', isCSE3rdSem(semester, stream), 'isECE3rdSem:', isECE3rdSem(semester, stream), 'isEEE3rdSem:', isEEE3rdSem(semester, stream), 'isCSE4thSem:', isCSE4thSem(semester, stream), 'isPhysicsCycleCivil:', isPhysicsCycleCivil(semester, stream), 'isPhysicsCycleCSE:', isPhysicsCycleCSE(semester, stream));
@@ -676,6 +790,16 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       setSubjects(CIVIL_5TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     } else if (mode === 'sgpa' && isMech5thSem(semester, stream)) {
       setSubjects(MECH_5TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCSE6thSem(semester, stream)) {
+      setSubjects(CSE_6TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isECE6thSem(semester, stream)) {
+      setSubjects(ECE_6TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isEEE6thSem(semester, stream)) {
+      setSubjects(EEE_6TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCivil6thSem(semester, stream)) {
+      setSubjects(CIVIL_6TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isMech6thSem(semester, stream)) {
+      setSubjects(MECH_6TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     }
     // eslint-disable-next-line
   }, [semester, stream, mode]);
@@ -808,6 +932,51 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
 
   // Handle marks input for Mechanical 5th sem
   const handleMarksChangeMech5th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for CSE/ISE/AIML 6th sem
+  const handleMarksChangeCSE6th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for ECE 6th sem
+  const handleMarksChangeECE6th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for EEE 6th sem
+  const handleMarksChangeEEE6th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Civil 6th sem
+  const handleMarksChangeCivil6th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Mechanical 6th sem
+  const handleMarksChangeMech6th = (idx, value) => {
     const gradePoint = getGradePointFromMarks(Number(value));
     const updated = subjects.map((subj, i) =>
       i === idx ? { ...subj, marks: value, gradePoint } : subj
@@ -1731,6 +1900,186 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 placeholder="Marks"
                 value={subj.marks}
                 onChange={e => handleMarksChangeMech5th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for CSE/IS/AIML 6th sem
+  if (mode === 'sgpa' && isCSE6thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 6th Semester | CS/IS/AIML branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE6th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for ECE 6th sem
+  if (mode === 'sgpa' && isECE6thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 6th Semester | ECE branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeECE6th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for EEE 6th sem
+  if (mode === 'sgpa' && isEEE6thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 6th Semester | EEE branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeEEE6th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Civil 6th sem
+  if (mode === 'sgpa' && isCivil6thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 6th Semester | Civil Engineering branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil6th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Mechanical 6th sem
+  if (mode === 'sgpa' && isMech6thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 6th Semester | Mechanical Engineering branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeMech6th(idx, e.target.value)}
                 className="subject-input"
                 ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                 onKeyDown={e => {
