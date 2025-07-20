@@ -55,7 +55,7 @@ button {
   font-size: 0.9rem;
   margin-right: 0.3rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.1s;
 }
 
 button.active, button:hover {
@@ -85,7 +85,7 @@ button[disabled] {
   font-weight: 600;
   margin: 0;
   box-shadow: none;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.1s, color 0.1s;
 }
 
 .mode-toggle button:first-child {
@@ -203,7 +203,7 @@ button[disabled] {
   padding: 0.6rem 1.5rem;
   margin-top: 0.5rem;
   cursor: pointer;
-  transition: background 0.18s, box-shadow 0.18s;
+  transition: background 0.1s, box-shadow 0.1s;
   box-shadow: 0 2px 8px rgba(24,138,90,0.10);
 }
 
@@ -243,7 +243,7 @@ button[disabled] {
   padding: 0.5rem 1.5rem;
   margin: 0.8rem 0 0.3rem 0;
   cursor: pointer;
-  transition: background 0.18s, box-shadow 0.18s;
+  transition: background 0.1s, box-shadow 0.1s;
   box-shadow: 0 2px 8px rgba(24,138,90,0.10);
 }
 
@@ -313,7 +313,7 @@ button[disabled] {
   padding: 0.6rem 2rem;
   margin: 0 0.5rem;
   cursor: pointer;
-  transition: background 0.18s, box-shadow 0.18s;
+  transition: background 0.1s, box-shadow 0.1s;
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
 }
 
@@ -323,7 +323,7 @@ button[disabled] {
 }
 
 .calculator-transition {
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
 }
 
 .calculator-transition.transitioning {
@@ -331,7 +331,7 @@ button[disabled] {
 }
 
 .mode-transition {
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
 }
 
 .mode-transition.transitioning {
