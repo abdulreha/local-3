@@ -2,6 +2,42 @@ import React, { useEffect, useRef } from 'react';
 import { getGradePointFromMarks, getGradePointFromLetter } from '../utils/gradeMapping';
 import '../styles/SelectorGroup.css';
 
+const CSE_3RD_SEM_SUBJECTS = [
+  { name: 'Mathematics for Computer Science', credits: 4, code: 'BCS301' },
+  { name: 'Digital Design & Computer Organization', credits: 4, code: 'BCS302' },
+  { name: 'Operating Systems', credits: 4, code: 'BCS303' },
+  { name: 'Data Structures and Applications', credits: 3, code: 'BCS304' },
+  { name: 'Data Structures Lab', credits: 1, code: 'BCSL305' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BCS306x' },
+  { name: 'Social Connect and Responsibility', credits: 1, code: 'BSCK307' },
+  { name: 'Ability Enhancement Course/Skill Enhancement Course - III', credits: 1, code: 'BCS358x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK359/BPEK359/BYOK359' },
+];
+
+const ECE_3RD_SEM_SUBJECTS = [
+  { name: 'AV Mathematics-III for EC Engineering', credits: 3, code: 'BMATEC301' },
+  { name: 'Digital System Design using Verilog', credits: 4, code: 'BEC302' },
+  { name: 'Electronic Principles and Circuits', credits: 4, code: 'BEC303' },
+  { name: 'Network Analysis', credits: 3, code: 'BEC304' },
+  { name: 'Analog and Digital Systems Design Lab', credits: 1, code: 'BECL305' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BXX306x' },
+  { name: 'Social Connect and Responsibility', credits: 1, code: 'BSCK307' },
+  { name: 'Ability Enhancement Course/Skill Enhancement Course III', credits: 1, code: 'BXX358x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK359/BPEK359/BYOK359' },
+];
+
+const EEE_3RD_SEM_SUBJECTS = [
+  { name: 'Engineering Mathematics for EEE', credits: 3, code: 'BMATE301' },
+  { name: 'Electric Circuit Analysis', credits: 4, code: 'BEE302' },
+  { name: 'Analog Electronic Circuits', credits: 4, code: 'BEE303' },
+  { name: 'Transformers and Generators', credits: 3, code: 'BEE304' },
+  { name: 'Transformers and Generators lab', credits: 1, code: 'BEEL305' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BEE306x' },
+  { name: 'Social Connect and Responsibility', credits: 1, code: 'BSCK307' },
+  { name: 'Ability Enhancement Course/Skill Enhancement Course III', credits: 1, code: 'BEE358x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK359/BPEK359/BYOK359' },
+];
+
 const CSE_4TH_SEM_SUBJECTS = [
   { name: 'Analyze and Design of Algorithm', credits: 3, code: 'BCS401' },
   { name: 'Microcontrollers', credits: 4, code: 'BCS402' },
@@ -149,6 +185,123 @@ const CHEMISTRY_MECH_CYCLE_SUBJECTS = [
   { name: 'Samskrutika Kannada / Balake Kannada OR Indian Constitution', credits: 1, code: 'BKSKKx07 / BKBKKx07 OR BICOKx07' },
   { name: 'Innovation and Design Thinking OR Scientific Foundations of Health', credits: 1, code: 'BIDTKx58 / BSFHKx58' },
 ];
+
+const CIVIL_3RD_SEM_SUBJECTS = [
+  { name: 'Strength of Materials', credits: 3, code: 'BCV301' },
+  { name: 'Engineering Survey', credits: 4, code: 'BCV302' },
+  { name: 'Engineering Geology', credits: 4, code: 'BCV303' },
+  { name: 'Water Supply and Waste water Engineering', credits: 3, code: 'BCV304' },
+  { name: 'Computer Aided Building Planning and Drawing', credits: 1, code: 'BCV305' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BCV306x' },
+  { name: 'Social Connect and Responsibility', credits: 1, code: 'BSCK307' },
+  { name: 'Ability Enhancement Course/Skill Enhancement Course III', credits: 1, code: 'BCV358x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK359/BPEK359/BYOK359' },
+];
+
+const MECH_3RD_SEM_SUBJECTS = [
+  { name: 'Mechanics of Materials', credits: 3, code: 'BME301' },
+  { name: 'Manufacturing Process', credits: 4, code: 'BME302' },
+  { name: 'Material Science and Engineering', credits: 4, code: 'BME303' },
+  { name: 'Basic Thermodynamics', credits: 3, code: 'BME304' },
+  { name: 'Introduction to Modelling and Design for Manufacturing', credits: 1, code: 'BMEL305' },
+  { name: 'ESC/ETC/PLC', credits: 3, code: 'BME306x' },
+  { name: 'Social Connect and Responsibility', credits: 1, code: 'BSCK307' },
+  { name: 'Ability Enhancement Course/Skill Enhancement Course III', credits: 1, code: 'BME358x' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK359/BPEK359/BYOK359' },
+];
+
+const CSE_5TH_SEM_SUBJECTS = [
+  { name: 'Software Engineering & Project Management', credits: 3, code: 'BCS501' },
+  { name: 'Computer Networks', credits: 4, code: 'BCS502' },
+  { name: 'Theory of Computation', credits: 4, code: 'BCS503' },
+  { name: 'Web Technology Lab', credits: 1, code: 'BCSL504' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BCS515x' },
+  { name: 'Mini Project', credits: 2, code: 'BCS586' },
+  { name: 'Research Methodology and IPR', credits: 3, code: 'BRMK557' },
+  { name: 'Environmental Studies', credits: 2, code: 'BESK508' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK559/BPEK559/BYOK559' },
+];
+
+const ECE_5TH_SEM_SUBJECTS = [
+  { name: 'Technological Innovation and Management Entrepreneurship', credits: 3, code: 'BEC501' },
+  { name: 'Digital Signal Processing', credits: 4, code: 'BEC502' },
+  { name: 'Digital Communication', credits: 4, code: 'BEC503' },
+  { name: 'Mini Project', credits: 2, code: 'BEC586' },
+  { name: 'Digital Communication Lab', credits: 1, code: 'BECL504' },
+  { name: 'Environmental Studies', credits: 2, code: 'BESK508' },
+  { name: 'Research Methodology and IPR', credits: 3, code: 'BRMK557' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BEC515x' },
+];
+
+const EEE_5TH_SEM_SUBJECTS = [
+  { name: 'Engineering Management and Entrepreneurship', credits: 3, code: 'BXX501' },
+  { name: 'Signals & DSP', credits: 4, code: 'BEE502' },
+  { name: 'Power Electronics', credits: 4, code: 'BEE503' },
+  { name: 'Power Electronics Lab', credits: 1, code: 'BEE504' },
+  { name: 'Professional Elective Course (Industry Suggested Course)', credits: 3, code: 'BEE515x' },
+  { name: 'Mini Project', credits: 2, code: 'BEE586' },
+  { name: 'Research Methodology and IPR', credits: 3, code: 'BRMK557' },
+  { name: 'Environmental Studies', credits: 2, code: 'BESK508' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK559 / BPEK559 / BYOK559' },
+];
+
+const CIVIL_5TH_SEM_SUBJECTS = [
+  { name: 'Construction Management and Entrepreneurship', credits: 3, code: 'BCV501' },
+  { name: 'Geotechnical Engineering', credits: 4, code: 'BCV502' },
+  { name: 'Concrete Technology', credits: 4, code: 'BCV503' },
+  { name: 'Environmental Engineering Lab', credits: 1, code: 'BCV504' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BCV515x' },
+  { name: 'Mini Project/Extensive Survey Project', credits: 2, code: 'BCV586' },
+  { name: 'Research Methodology and IPR', credits: 3, code: 'BRMK557' },
+  { name: 'Environmental Studies', credits: 2, code: 'BESK508' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK559 / BPEK559 / BYOK559' },
+];
+
+const MECH_5TH_SEM_SUBJECTS = [
+  { name: 'Industrial Management & Entrepreneurship', credits: 3, code: 'BME501' },
+  { name: 'Turbo Machines', credits: 4, code: 'BME502' },
+  { name: 'Theory of Machines', credits: 4, code: 'BME503' },
+  { name: 'CNC Programming and 3-D Printing Lab', credits: 1, code: 'BME504L' },
+  { name: 'Professional Elective - I', credits: 3, code: 'BME515x' },
+  { name: 'Mini Project', credits: 2, code: 'BME586' },
+  { name: 'Research Methodology and IPR', credits: 3, code: 'BRMK557' },
+  { name: 'Environmental Studies', credits: 2, code: 'BESK508' },
+  { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK559 / BPEK559 / BYOK559' },
+];
+
+const isCSE3rdSem = (semester, stream) => {
+  if (semester !== '3rd') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  console.log('isCSE3rdSem check - semester:', semester, 'stream:', stream, 'lowercase:', s);
+  return (
+    s.includes('cse') ||
+    s.includes('ise') ||
+    s.includes('aiml') ||
+    s.includes('cs') ||
+    s.includes('is') ||
+    s.includes('cse / is / aiml') ||
+    s.includes('cse/is/aiml') ||
+    s.includes('cse / is') ||
+    s.includes('cse/is')
+  );
+};
+
+const isECE3rdSem = (semester, stream) => {
+  if (semester !== '3rd') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  console.log('isECE3rdSem check - semester:', semester, 'stream:', stream, 'lowercase:', s);
+  return (
+    s === 'ec' ||
+    s === 'ece' ||
+    s.includes('electronics') ||
+    s.includes('ec branch') ||
+    s.includes('ece branch') ||
+    s.includes('ece / ec') ||
+    s.includes('ece/ec')
+  );
+};
 
 const isCSE4thSem = (semester, stream) => {
   if (semester !== '4th') return false;
@@ -369,12 +522,117 @@ const isChemistryCycleMech = (semester, stream) => {
   return isChem && isMech;
 };
 
+const isEEE3rdSem = (semester, stream) => {
+  if (semester !== '3rd') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  console.log('isEEE3rdSem check - semester:', semester, 'stream:', stream, 'lowercase:', s);
+  return (
+    s === 'eee' ||
+    s.includes('eee branch') ||
+    s.includes('electrical') ||
+    s.includes('electrical and electronics') ||
+    s.includes('electrical engineering')
+  );
+};
+
+const isCivil3rdSem = (semester, stream) => {
+  if (semester !== '3rd') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('civil engineering') ||
+    s === 'civil' ||
+    s.includes('civil branch')
+  );
+};
+
+const isMech3rdSem = (semester, stream) => {
+  if (semester !== '3rd') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('mechanical engineering') ||
+    s === 'mechanical' ||
+    s.includes('mech branch') ||
+    s.includes('mech')
+  );
+};
+
+const isCSE5thSem = (semester, stream) => {
+  if (semester !== '5th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('cse') ||
+    s.includes('ise') ||
+    s.includes('aiml') ||
+    s.includes('cs') ||
+    s.includes('is')
+  );
+};
+
+const isECE5thSem = (semester, stream) => {
+  if (semester !== '5th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'ec' ||
+    s === 'ece' ||
+    s.includes('electronics') ||
+    s.includes('ec branch') ||
+    s.includes('ece branch')
+  );
+};
+
+const isEEE5thSem = (semester, stream) => {
+  if (semester !== '5th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'eee' ||
+    s.includes('eee branch') ||
+    s.includes('electrical') ||
+    s.includes('electrical and electronics') ||
+    s.includes('electrical engineering')
+  );
+};
+
+const isCivil5thSem = (semester, stream) => {
+  if (semester !== '5th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('civil engineering') ||
+    s === 'civil' ||
+    s.includes('civil branch')
+  );
+};
+
+const isMech5thSem = (semester, stream) => {
+  if (semester !== '5th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('mechanical engineering') ||
+    s === 'mechanical' ||
+    s.includes('mech branch') ||
+    s.includes('mechanical branch')
+  );
+};
+
 const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stream, firstInputRef }) => {
-  // Debug log for both CSE and Civil Physics Cycle
-  console.log('semester:', semester, 'stream:', stream, 'isPhysicsCycleCivil:', isPhysicsCycleCivil(semester, stream), 'isPhysicsCycleCSE:', isPhysicsCycleCSE(semester, stream));
-  // Auto-populate for CSE/ISE/AIML 4th sem\
+  // Debug log for all detection functions
+  console.log('semester:', semester, 'stream:', stream, 'isCSE3rdSem:', isCSE3rdSem(semester, stream), 'isECE3rdSem:', isECE3rdSem(semester, stream), 'isEEE3rdSem:', isEEE3rdSem(semester, stream), 'isCSE4thSem:', isCSE4thSem(semester, stream), 'isPhysicsCycleCivil:', isPhysicsCycleCivil(semester, stream), 'isPhysicsCycleCSE:', isPhysicsCycleCSE(semester, stream));
+  // Auto-populate for CSE/ISE/AIML 3rd and 4th sem, and ECE 3rd sem
   useEffect(() => {
-    if (mode === 'sgpa' && isCSE4thSem(semester, stream)) {
+    if (mode === 'sgpa' && isCSE3rdSem(semester, stream)) {
+      setSubjects(CSE_3RD_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isECE3rdSem(semester, stream)) {
+      setSubjects(ECE_3RD_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isEEE3rdSem(semester, stream)) {
+      setSubjects(EEE_3RD_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCSE4thSem(semester, stream)) {
       setSubjects(CSE_4TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     } else if (mode === 'sgpa' && isECE4thSem(semester, stream)) {
       setSubjects(ECE_4TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
@@ -404,9 +662,41 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
     } else if (mode === 'sgpa' && isChemistryCycleCivil(semester, stream)) {
       console.log('Setting Civil Chemistry Cycle subjects');
       setSubjects(CHEMISTRY_CIVIL_CYCLE_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCivil3rdSem(semester, stream)) {
+      setSubjects(CIVIL_3RD_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isMech3rdSem(semester, stream)) {
+      setSubjects(MECH_3RD_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCSE5thSem(semester, stream)) {
+      setSubjects(CSE_5TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isECE5thSem(semester, stream)) {
+      setSubjects(ECE_5TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isEEE5thSem(semester, stream)) {
+      setSubjects(EEE_5TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCivil5thSem(semester, stream)) {
+      setSubjects(CIVIL_5TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isMech5thSem(semester, stream)) {
+      setSubjects(MECH_5TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     }
     // eslint-disable-next-line
   }, [semester, stream, mode]);
+
+  // Handle marks input for CSE/ISE/AIML 3rd sem
+  const handleMarksChangeCSE3rd = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for ECE 3rd sem
+  const handleMarksChangeECE3rd = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
 
   // Handle marks input for CSE/ISE/AIML 4th sem
   const handleMarksChangeCSE = (idx, value) => {
@@ -435,6 +725,24 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
     setSubjects(updated);
   };
 
+  // Handle marks input for EEE 3rd sem
+  const handleMarksChangeEEE3rd = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Civil 3rd sem
+  const handleMarksChangeCivil3rd = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
   // Handle marks input for Civil 4th sem
   const handleMarksChangeCivil = (idx, value) => {
     const gradePoint = getGradePointFromMarks(Number(value));
@@ -446,6 +754,60 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
 
   // Handle marks input for Mechanical 4th sem
   const handleMarksChangeMech = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Mechanical 3rd sem
+  const handleMarksChangeMech3rd = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for CSE/ISE/AIML 5th sem
+  const handleMarksChangeCSE5th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for ECE 5th sem
+  const handleMarksChangeECE5th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for EEE 5th sem
+  const handleMarksChangeEEE5th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Civil 5th sem
+  const handleMarksChangeCivil5th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Mechanical 5th sem
+  const handleMarksChangeMech5th = (idx, value) => {
     const gradePoint = getGradePointFromMarks(Number(value));
     const updated = subjects.map((subj, i) =>
       i === idx ? { ...subj, marks: value, gradePoint } : subj
@@ -491,13 +853,121 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
   const marksRefs = useRef([]);
   const sgpaRefs = useRef([]); // Always declare at top
 
+  // Render for CSE/ISE/AIML 3rd sem
+  if (mode === 'sgpa' && isCSE3rdSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 3rd Semester | CS / IS / AIML</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE3rd(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for ECE 3rd sem
+  if (mode === 'sgpa' && isECE3rdSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 3rd Semester | ECE</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeECE3rd(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for EEE 3rd sem
+  if (mode === 'sgpa' && isEEE3rdSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 3rd Semester | EEE</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeEEE3rd(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   // Render for CSE/ISE/AIML 4th sem
   if (mode === 'sgpa' && isCSE4thSem(semester, stream)) {
     return (
       <div className="section-card">
         <h3>Enter your marks for 4th Semester | CSE / ISE / AIML</h3>
         {subjects.map((subj, idx) => (
-          <div className="subject-card" key={subj.code}>
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
             <div className="subject-title">{subj.name}</div>
             <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
             <div className="subject-fields">
@@ -533,7 +1003,7 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       <div className="section-card">
         <h3>Enter your marks for 4th Semester | ECE</h3>
         {subjects.map((subj, idx) => (
-          <div className="subject-card" key={subj.code}>
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
             <div className="subject-title">{subj.name}</div>
             <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
             <div className="subject-fields">
@@ -569,7 +1039,7 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       <div className="section-card">
         <h3>Enter your marks for 4th Semester | EEE</h3>
         {subjects.map((subj, idx) => (
-          <div className="subject-card" key={subj.code}>
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
             <div className="subject-title">{subj.name}</div>
             <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
             <div className="subject-fields">
@@ -605,7 +1075,7 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       <div className="section-card">
         <h3>Enter your marks for 4th Semester | Civil</h3>
         {subjects.map((subj, idx) => (
-          <div className="subject-card" key={subj.code}>
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
             <div className="subject-title">{subj.name}</div>
             <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
             <div className="subject-fields">
@@ -642,7 +1112,7 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       <div className="section-card">
         <h3>Enter your marks for 4th Semester | Mechanical</h3>
         {subjects.map((subj, idx) => (
-          <div className="subject-card" key={subj.code}>
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
             <div className="subject-title">{subj.name}</div>
             <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
             <div className="subject-fields">
@@ -1021,6 +1491,258 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
               <span style={{ background: '#dbeafe', color: '#2563eb', fontWeight: 600, fontSize: '1.08rem', borderRadius: '8px', padding: '0.18rem 0.8rem', marginLeft: '0.2rem', border: '1.2px solid #bcd0fa', minWidth: '48px', textAlign: 'center' }}>
                 GP: {subj.gradePoint || ''}
               </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Civil 3rd sem
+  if (mode === 'sgpa' && isCivil3rdSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 3rd Semester | Civil Engineering</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil3rd(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Mechanical 3rd sem
+  if (mode === 'sgpa' && isMech3rdSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 3rd Semester | Mechanical Engineering</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeMech3rd(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for CSE/IS/AIML 5th sem
+  if (mode === 'sgpa' && isCSE5thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 5th Semester | CS / IS / AIML</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE5th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for ECE 5th sem
+  if (mode === 'sgpa' && isECE5thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 5th Semester | ECE</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeECE5th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for EEE 5th sem
+  if (mode === 'sgpa' && isEEE5thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 5th Semester | EEE</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeEEE5th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Civil 5th sem
+  if (mode === 'sgpa' && isCivil5thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 5th Semester | Civil Engineering</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil5th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Mechanical 5th sem
+  if (mode === 'sgpa' && isMech5thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter Your Marks – 2022 Scheme | 5th Semester | Mechanical Engineering Branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeMech5th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
             </div>
           </div>
         ))}
