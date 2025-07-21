@@ -323,6 +323,81 @@ const MECH_6TH_SEM_SUBJECTS = [
   { name: 'NSS/PE/Yoga', credits: 0, code: 'BNSK658 / BPEK658 / BYOK658' },
 ];
 
+const CSE_7TH_SEM_SUBJECTS = [
+  { name: 'Internet of Things', credits: 4, code: 'BCS701' },
+  { name: 'Parallel Computing', credits: 4, code: 'BCS702' },
+  { name: 'Cryptography & Network Security', credits: 4, code: 'BCS703' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BCS714x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BCS755x' },
+  { name: 'Major Project Phase-II', credits: 6, code: 'BCS786' },
+];
+
+const ECE_7TH_SEM_SUBJECTS = [
+  { name: 'Microwave Engineering and Antenna Theory', credits: 4, code: 'BEC701' },
+  { name: 'Computer Networks and Protocols', credits: 4, code: 'BEC702' },
+  { name: 'Wireless Communication Systems', credits: 4, code: 'BEC703' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BEC714x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BEC755x' },
+  { name: 'Major Project Phase-II', credits: 6, code: 'BEC786' },
+];
+
+const EEE_7TH_SEM_SUBJECTS = [
+  { name: 'Switchgear and Protection', credits: 4, code: 'BEE701' },
+  { name: 'Industrial Drives and Applications', credits: 4, code: 'BEE702' },
+  { name: 'Power System Analysis II', credits: 4, code: 'BEE703' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BEE714x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BEE755x' },
+  { name: 'Major Project Phase-II', credits: 6, code: 'BEE786' },
+];
+
+const CIVIL_7TH_SEM_SUBJECTS = [
+  { name: 'Design of Steel Structures', credits: 4, code: 'BCV701' },
+  { name: 'Estimation and Contract Management', credits: 4, code: 'BCV702' },
+  { name: 'Prestressed Concrete', credits: 4, code: 'BCV703' },
+  { name: 'Professional Elective Course', credits: 3, code: 'BCV714x' },
+  { name: 'Open Elective Course', credits: 3, code: 'BCV755x' },
+  { name: 'Major Project Phase-II', credits: 6, code: 'BCV786' },
+];
+
+const MECH_7TH_SEM_SUBJECTS = [
+  { name: 'Finite Element Methods', credits: 4, code: 'BME701' },
+  { name: 'Hydraulics and Pneumatics', credits: 4, code: 'BME702' },
+  { name: 'Control Engineering', credits: 4, code: 'BME703' },
+  { name: 'Professional Elective Course-III', credits: 3, code: 'BME714x' },
+  { name: 'Open Elective Course-II', credits: 3, code: 'BME755x' },
+  { name: 'Major Project Phase-II', credits: 6, code: 'BME786' },
+];
+
+const CSE_8TH_SEM_SUBJECTS = [
+  { name: 'Professional Elective (Online Courses) Only through NPTEL', credits: 3, code: 'BCS801x' },
+  { name: 'Open Elective (Online Courses) Only through NPTEL', credits: 3, code: 'BCS802x' },
+  { name: 'Internship (Industry/Research)', credits: 10, code: 'BCS803' },
+];
+
+const ECE_8TH_SEM_SUBJECTS = [
+  { name: 'Professional Elective Course (Online Courses)', credits: 3, code: 'BEC801x' },
+  { name: 'Open Elective Course (Online Courses)', credits: 3, code: 'BEC802x' },
+  { name: 'Internship (Industry/Research)', credits: 10, code: 'BEC803' },
+];
+
+const EEE_8TH_SEM_SUBJECTS = [
+  { name: 'Professional Elective (Online Courses)', credits: 3, code: 'BEE801x' },
+  { name: 'Open Elective (Online Courses)', credits: 3, code: 'BEE802x' },
+  { name: 'Internship (Industry/Research)', credits: 10, code: 'BEE803' },
+];
+
+const CIVIL_8TH_SEM_SUBJECTS = [
+  { name: 'Professional Elective (Online Courses)', credits: 3, code: 'BCV801x' },
+  { name: 'Open Elective (Online Courses)', credits: 3, code: 'BCV802x' },
+  { name: 'Internship (Industry/Research)', credits: 10, code: 'BCV803' },
+];
+
+const MECH_8TH_SEM_SUBJECTS = [
+  { name: 'Professional Elective-IV (Online Courses)', credits: 3, code: 'BME801x' },
+  { name: 'Open Elective-III (Online Courses)', credits: 3, code: 'BME802x' },
+  { name: 'Internship (Industry/Research)', credits: 10, code: 'BME803' },
+];
+
 const isCSE3rdSem = (semester, stream) => {
   if (semester !== '3rd') return false;
   if (!stream) return false;
@@ -436,14 +511,21 @@ const isPhysicsCycleCSE = (semester, stream) => {
   const sem = semester.trim().toLowerCase().replace(/\s+/g, ' ');
   const s = stream.trim().toLowerCase().replace(/\s+/g, ' ');
   // Accept 'physics cycle', 'p-cycle', 'p cycle', etc. in semester
-  // Accept cse/isc/bt/cse stream/cse scheme in stream
+  // Accept cse/isc/bt/cse stream/cse scheme in stream, with flexible matching
   const isPhysics = sem.includes('physics cycle') || sem.includes('p-cycle') || sem.includes('p cycle');
+  // Flexible CSE/ISC/BT matching
   const isCSE =
+    /cse(\W|$)/.test(s) ||
+    /isc(\W|$)/.test(s) ||
+    /bt(\W|$)/.test(s) ||
     s.includes('cse stream') ||
     s.includes('cse scheme') ||
-    s.includes('cse') ||
-    s.includes('isc') ||
-    s.includes('bt');
+    s.includes('cse/is/aiml') ||
+    s.includes('cse / is / aiml') ||
+    s.includes('cse/is') ||
+    s.includes('cse / is') ||
+    s.includes('is') ||
+    s.includes('aiml');
   return isPhysics && isCSE;
 };
 
@@ -453,6 +535,7 @@ const isPhysicsCycleElec = (semester, stream) => {
   const s = stream.trim().toLowerCase().replace(/\s+/g, ' ');
   // Accept 'physics cycle', 'p-cycle', 'p cycle', etc. in semester
   // Accept eee/ece/etc/bm/ie/ml/electrical engg science streams in stream
+  // Also accept cse stream scheme and cse/isc/bt for this block
   const isPhysics = sem.includes('physics cycle') || sem.includes('p-cycle') || sem.includes('p cycle');
   const isElec =
     s.includes('electrical engg science') ||
@@ -461,7 +544,9 @@ const isPhysicsCycleElec = (semester, stream) => {
     s.includes('etc') ||
     s.includes('bm') ||
     s.includes('ie') ||
-    s.includes('ml');
+    s.includes('ml') ||
+    s.includes('cse stream scheme') ||
+    s.includes('cse/isc/bt');
   return isPhysics && isElec;
 };
 
@@ -735,6 +820,126 @@ const isMech6thSem = (semester, stream) => {
   );
 };
 
+const isCSE7thSem = (semester, stream) => {
+  if (semester !== '7th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('cse') ||
+    s.includes('ise') ||
+    s.includes('aiml') ||
+    s.includes('cs') ||
+    s.includes('is')
+  );
+};
+
+const isECE7thSem = (semester, stream) => {
+  if (semester !== '7th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'ec' ||
+    s === 'ece' ||
+    s.includes('electronics') ||
+    s.includes('ec branch') ||
+    s.includes('ece branch')
+  );
+};
+
+const isEEE7thSem = (semester, stream) => {
+  if (semester !== '7th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'eee' ||
+    s.includes('eee branch') ||
+    s.includes('electrical and electronics')
+  );
+};
+
+const isCivil7thSem = (semester, stream) => {
+  if (semester !== '7th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('civil engineering') ||
+    s === 'civil' ||
+    s.includes('civil branch')
+  );
+};
+
+const isMech7thSem = (semester, stream) => {
+  if (semester !== '7th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('mechanical engineering') ||
+    s === 'mechanical' ||
+    s.includes('mech branch') ||
+    s.includes('mech')
+  );
+};
+
+const isCSE8thSem = (semester, stream) => {
+  if (semester !== '8th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('cse') ||
+    s.includes('ise') ||
+    s.includes('aiml') ||
+    s.includes('cs') ||
+    s.includes('is')
+  );
+};
+
+const isECE8thSem = (semester, stream) => {
+  if (semester !== '8th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'ec' ||
+    s === 'ece' ||
+    s.includes('electronics') ||
+    s.includes('ec branch') ||
+    s.includes('ece branch')
+  );
+};
+
+const isEEE8thSem = (semester, stream) => {
+  if (semester !== '8th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s === 'eee' ||
+    s.includes('eee branch') ||
+    s.includes('electrical and electronics')
+  );
+};
+
+const isCivil8thSem = (semester, stream) => {
+  if (semester !== '8th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('civil engineering') ||
+    s === 'civil' ||
+    s.includes('civil branch')
+  );
+};
+
+const isMech8thSem = (semester, stream) => {
+  if (semester !== '8th') return false;
+  if (!stream) return false;
+  const s = stream.toLowerCase().trim();
+  return (
+    s.includes('mechanical engineering') ||
+    s === 'mechanical' ||
+    s.includes('mech branch') ||
+    s.includes('mech')
+  );
+};
+
 const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stream, firstInputRef }) => {
   // Debug log for all detection functions
   console.log('semester:', semester, 'stream:', stream, 'isCSE3rdSem:', isCSE3rdSem(semester, stream), 'isECE3rdSem:', isECE3rdSem(semester, stream), 'isEEE3rdSem:', isEEE3rdSem(semester, stream), 'isCSE4thSem:', isCSE4thSem(semester, stream), 'isPhysicsCycleCivil:', isPhysicsCycleCivil(semester, stream), 'isPhysicsCycleCSE:', isPhysicsCycleCSE(semester, stream));
@@ -800,6 +1005,26 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
       setSubjects(CIVIL_6TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     } else if (mode === 'sgpa' && isMech6thSem(semester, stream)) {
       setSubjects(MECH_6TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCSE7thSem(semester, stream)) {
+      setSubjects(CSE_7TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isECE7thSem(semester, stream)) {
+      setSubjects(ECE_7TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isEEE7thSem(semester, stream)) {
+      setSubjects(EEE_7TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCivil7thSem(semester, stream)) {
+      setSubjects(CIVIL_7TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isMech7thSem(semester, stream)) {
+      setSubjects(MECH_7TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCSE8thSem(semester, stream)) {
+      setSubjects(CSE_8TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isECE8thSem(semester, stream)) {
+      setSubjects(ECE_8TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isEEE8thSem(semester, stream)) {
+      setSubjects(EEE_8TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isCivil8thSem(semester, stream)) {
+      setSubjects(CIVIL_8TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
+    } else if (mode === 'sgpa' && isMech8thSem(semester, stream)) {
+      setSubjects(MECH_8TH_SEM_SUBJECTS.map(subj => ({ ...subj, marks: '', gradePoint: '' })));
     }
     // eslint-disable-next-line
   }, [semester, stream, mode]);
@@ -977,6 +1202,96 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
 
   // Handle marks input for Mechanical 6th sem
   const handleMarksChangeMech6th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for CSE/IS/AIML 7th sem
+  const handleMarksChangeCSE7th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for ECE 7th sem
+  const handleMarksChangeECE7th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for EEE 7th sem
+  const handleMarksChangeEEE7th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Civil 7th sem
+  const handleMarksChangeCivil7th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Mechanical 7th sem
+  const handleMarksChangeMech7th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for CSE/IS/AIML 8th sem
+  const handleMarksChangeCSE8th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for ECE 8th sem
+  const handleMarksChangeECE8th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for EEE 8th sem
+  const handleMarksChangeEEE8th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Civil 8th sem
+  const handleMarksChangeCivil8th = (idx, value) => {
+    const gradePoint = getGradePointFromMarks(Number(value));
+    const updated = subjects.map((subj, i) =>
+      i === idx ? { ...subj, marks: value, gradePoint } : subj
+    );
+    setSubjects(updated);
+  };
+
+  // Handle marks input for Mechanical 8th sem
+  const handleMarksChangeMech8th = (idx, value) => {
     const gradePoint = getGradePointFromMarks(Number(value));
     const updated = subjects.map((subj, i) =>
       i === idx ? { ...subj, marks: value, gradePoint } : subj
@@ -1312,50 +1627,6 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
     );
   }
 
-  // Render for Physics Cycle Civil Engineering
-  if (mode === 'sgpa' && isPhysicsCycleCivil(semester, stream)) {
-    return (
-      <div className="section-card">
-        <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '2rem', lineHeight: 1.3 }}>
-          Enter your marks for 2022 scheme | Physics Cycle | Civil Engineering Stream<br/>
-          <span style={{ fontWeight: 500, fontSize: '1rem' }}>(CV/EV/TR/CC) branch</span>
-        </h3>
-        {subjects.map((subj, idx) => (
-          <div className="subject-card" key={subj.code + '-' + idx} style={{ background: '#e8edff', borderRadius: '16px', padding: '1.1rem 1.2rem 1.3rem 1.2rem', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', border: '1.5px solid #dbeafe' }}>
-            <div className="subject-title" style={{ color: '#1e40af', fontWeight: 700, fontSize: '1.35rem', marginBottom: '0.3rem' }}>{subj.name}</div>
-            <div style={{ color: '#3853a3', fontSize: '1.08rem', marginBottom: '1.1rem', fontWeight: 500 }}>
-              Code: {subj.code} | Credits: {subj.credits}
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-              <input
-                type="number"
-                min="0"
-                max="100"
-                placeholder="Marks"
-                value={subj.marks}
-                onChange={e => handleMarksChangeCivil(idx, e.target.value)}
-                className="subject-input"
-                style={{ flex: 1, fontSize: '1.08rem', borderRadius: '8px', border: '1.5px solid #bcd0fa', background: '#fff', marginRight: '0.7rem' }}
-                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
-                onKeyDown={e => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (marksRefs.current[idx + 1]) {
-                      marksRefs.current[idx + 1].focus();
-                    }
-                  }
-                }}
-              />
-              <span style={{ background: '#dbeafe', color: '#2563eb', fontWeight: 600, fontSize: '1.08rem', borderRadius: '8px', padding: '0.18rem 0.8rem', marginLeft: '0.2rem', border: '1.2px solid #bcd0fa', minWidth: '48px', textAlign: 'center' }}>
-                GP: {subj.gradePoint || ''}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   // Render for Physics Cycle CSE Stream Scheme
   if (mode === 'sgpa' && isPhysicsCycleCSE(semester, stream)) {
     return (
@@ -1466,6 +1737,50 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 placeholder="Marks"
                 value={subj.marks}
                 onChange={e => handleMarksChangeCSE(idx, e.target.value)}
+                className="subject-input"
+                style={{ flex: 1, fontSize: '1.08rem', borderRadius: '8px', border: '1.5px solid #bcd0fa', background: '#fff', marginRight: '0.7rem' }}
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span style={{ background: '#dbeafe', color: '#2563eb', fontWeight: 600, fontSize: '1.08rem', borderRadius: '8px', padding: '0.18rem 0.8rem', marginLeft: '0.2rem', border: '1.2px solid #bcd0fa', minWidth: '48px', textAlign: 'center' }}>
+                GP: {subj.gradePoint || ''}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Physics Cycle Civil Engineering
+  if (mode === 'sgpa' && isPhysicsCycleCivil(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '2rem', lineHeight: 1.3 }}>
+          Enter your marks for 2022 scheme | Physics Cycle | Civil Engineering Stream<br/>
+          <span style={{ fontWeight: 500, fontSize: '1rem' }}>(CV/EV/TR/CC) branch</span>
+        </h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={subj.code + '-' + idx} style={{ background: '#e8edff', borderRadius: '16px', padding: '1.1rem 1.2rem 1.3rem 1.2rem', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', border: '1.5px solid #dbeafe' }}>
+            <div className="subject-title" style={{ color: '#1e40af', fontWeight: 700, fontSize: '1.35rem', marginBottom: '0.3rem' }}>{subj.name}</div>
+            <div style={{ color: '#3853a3', fontSize: '1.08rem', marginBottom: '1.1rem', fontWeight: 500 }}>
+              Code: {subj.code} | Credits: {subj.credits}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil(idx, e.target.value)}
                 className="subject-input"
                 style={{ flex: 1, fontSize: '1.08rem', borderRadius: '8px', border: '1.5px solid #bcd0fa', background: '#fff', marginRight: '0.7rem' }}
                 ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
@@ -2080,6 +2395,366 @@ const SubjectInputForm = ({ subjects, setSubjects, mode = 'sgpa', semester, stre
                 placeholder="Marks"
                 value={subj.marks}
                 onChange={e => handleMarksChangeMech6th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for CSE/IS/AIML 7th sem
+  if (mode === 'sgpa' && isCSE7thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 7th Semester | CS/IS/AIML branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>credits: {subj.credits}, code: {subj.code}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE7th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for ECE 7th sem
+  if (mode === 'sgpa' && isECE7thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 7th Semester | EC branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeECE7th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for EEE 7th sem
+  if (mode === 'sgpa' && isEEE7thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 7th Semester | EEE branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeEEE7th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Civil 7th sem
+  if (mode === 'sgpa' && isCivil7thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 7th Semester | Civil Engineering branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil7th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Mechanical 7th sem
+  if (mode === 'sgpa' && isMech7thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 7th Semester | Mechanical Engineering branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeMech7th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for CSE/IS/AIML 8th sem
+  if (mode === 'sgpa' && isCSE8thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 8th Semester | CS/IS/AIML branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCSE8th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for ECE 8th sem
+  if (mode === 'sgpa' && isECE8thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 8th Semester | ECE branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeECE8th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for EEE 8th sem
+  if (mode === 'sgpa' && isEEE8thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 8th Semester | EEE branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeEEE8th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Civil 8th sem
+  if (mode === 'sgpa' && isCivil8thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 8th Semester | Civil Engineering branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeCivil8th(idx, e.target.value)}
+                className="subject-input"
+                ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (marksRefs.current[idx + 1]) {
+                      marksRefs.current[idx + 1].focus();
+                    }
+                  }
+                }}
+              />
+              <span className="grade-point">GP: {subj.gradePoint}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Render for Mechanical 8th sem
+  if (mode === 'sgpa' && isMech8thSem(semester, stream)) {
+    return (
+      <div className="section-card">
+        <h3>Enter your marks for 2022 scheme | 8th Semester | Mechanical Engineering branch</h3>
+        {subjects.map((subj, idx) => (
+          <div className="subject-card" key={`${subj.code}-${idx}`}>
+            <div className="subject-title">{subj.name}</div>
+            <div style={{ color: '#555', marginBottom: '0.5rem' }}>Code: {subj.code} | Credits: {subj.credits}</div>
+            <div className="subject-fields">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Marks"
+                value={subj.marks}
+                onChange={e => handleMarksChangeMech8th(idx, e.target.value)}
                 className="subject-input"
                 ref={idx === 0 && firstInputRef ? firstInputRef : el => marksRefs.current[idx] = el}
                 onKeyDown={e => {
