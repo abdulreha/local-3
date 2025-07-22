@@ -156,7 +156,7 @@ const CHEMISTRY_CIVIL_CYCLE_SUBJECTS = [
 const CHEMISTRY_CSE_CYCLE_SUBJECTS = [
   { name: 'Mathematics - I/II for CSE Stream', credits: 4, code: 'BMATMx01' },
   { name: 'Applied Chemistry for CSE Stream', credits: 4, code: 'BCHEMx02' },
-  { name: 'Principles of Programming Using C', credits: 3, code: 'BPOPSx03' },
+  { name: 'Computer-Aided Engineering Drawing', credits: 3, code: 'BCEDKx03' },
   { name: 'Engineering Science Course - I/II', credits: 3, code: 'BESCKx04x' },
   { name: 'Emerging Technology Course - I/II OR Programming Language Course - I/II', credits: 3, code: 'BETCKx05x / BPLCKx05x' },
   { name: 'Communicative English OR Professional Writing Skills in English', credits: 1, code: 'BENGKx06 / BPWSKx06' },
@@ -167,7 +167,7 @@ const CHEMISTRY_CSE_CYCLE_SUBJECTS = [
 const CHEMISTRY_ELEC_CYCLE_SUBJECTS = [
   { name: 'Mathematics - I/II for EEE Stream', credits: 4, code: 'BMATEx01' },
   { name: 'Applied Chemistry for EEE Stream', credits: 4, code: 'BCHEEx02' },
-  { name: 'Elementsof Electrical Engineering/ Basic Electronicsfor EEE stream', credits: 3, code: 'BEEEx03' },
+  { name: 'Computer-Aided Engineering Drawing', credits: 3, code: 'BCEDKx03' },
   { name: 'Engineering Science Course - I/II', credits: 3, code: 'BESCKx04x' },
   { name: 'Emerging Technology Course - I/II OR Programming Language Course - I/II', credits: 3, code: 'BETCKx05x / BPLCKx05x' },
   { name: 'Communicative English OR Professional Writing Skills in English', credits: 1, code: 'BENGKx06 / BPWSKx06' },
